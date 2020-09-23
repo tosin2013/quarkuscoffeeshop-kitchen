@@ -57,3 +57,14 @@ Run the integration tests with:
 {"eventType":"KITCHEN_ORDER_IN","item":"CAKEPOP","itemId":"fd2af2b9-8d97-443d-bed8-371f2782a8b3","name":"Bruno","orderId":"9103dd6b-ed58-423f-90b2-5cc43147E5GH"}
 {"eventType":"KITCHEN_ORDER_IN","item":"COOKIE","itemId":"fd2af2b9-8d97-443d-bed8-371f2782a8b3","name":"Mason","orderId":"9103dd6b-ed58-423f-90b2-5cc431134cc%"}
 ```
+
+## Packaging and running the application
+
+```
+export KAFKA_BOOTSTRAP_URLS=localhost:9092
+./mvnw clean package -Pnative -Dquarkus.native.container-build=true
+docker build -f src/main/docker/Dockerfile.native -t <<DOCKER_HUB_ID>>/quarkuscoffeeshop-kitchen .
+docker run -i --network="host" -e KAFKA_BOOTSTRAP_URLS=${KAFKA_BOOTSTRAP_URLS} <<DOCKER_HUB_ID>>/quarkuscoffeeshop-kitchen:latest
+docker images -a | grep kitchen
+docker tag <<RESULT>> <<DOCKER_HUB_ID>>/quarkuscoffeeshop-kitchen:<<VERSION>>
+```
