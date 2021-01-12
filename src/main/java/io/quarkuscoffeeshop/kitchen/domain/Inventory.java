@@ -1,7 +1,6 @@
 package io.quarkuscoffeeshop.kitchen.domain;
 
-import io.quarkuscoffeeshop.domain.EightySixException;
-import io.quarkuscoffeeshop.domain.Item;
+import io.quarkuscoffeeshop.kitchen.domain.exceptions.EightySixException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

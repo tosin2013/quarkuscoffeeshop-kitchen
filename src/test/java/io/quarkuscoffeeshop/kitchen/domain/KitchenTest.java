@@ -1,10 +1,12 @@
 package io.quarkuscoffeeshop.kitchen.domain;
 
 import io.quarkus.test.junit.QuarkusTest;
+import io.quarkuscoffeeshop.kitchen.domain.valueobjects.TicketIn;
+import io.quarkuscoffeeshop.kitchen.domain.valueobjects.TicketUp;
 import org.junit.jupiter.api.Test;
 
-import io.quarkuscoffeeshop.domain.*;
 import javax.inject.Inject;
+import java.time.Instant;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
@@ -25,18 +27,11 @@ public class KitchenTest {
 
         logger.info("Test that a Cakepop is ready instantly");
 
-        OrderInEvent orderIn = new OrderInEvent(
-                EventType.KITCHEN_ORDER_IN,
-                UUID.randomUUID().toString(),
-                "Moe",
-                Item.CAKEPOP);
+        TicketIn orderIn = new TicketIn(UUID.randomUUID().toString(), UUID.randomUUID().toString(), Item.CAKEPOP, "Minnie", Instant.now());
 
-        CompletableFuture<Event> result = kitchen.make(orderIn);
-        OrderUpEvent orderUpEvent = (OrderUpEvent) result.get();
-            assertEquals(EventType.KITCHEN_ORDER_UP, orderUpEvent.getEventType());
-            assertEquals(orderIn.item, orderUpEvent.item);
-            assertEquals(orderIn.orderId, orderUpEvent.orderId);
-            assertEquals(orderIn.name, orderUpEvent.name);
-            assertEquals(EventType.KITCHEN_ORDER_UP, orderUpEvent.eventType);
+        TicketUp ticketUp = kitchen.make(orderIn);
+        assertEquals(orderIn.getItem(), ticketUp.getItem());
+        assertEquals(orderIn.getOrderId(), ticketUp.getOrderId());
+        assertEquals(orderIn.getName(), ticketUp.getName());
     }
 }
