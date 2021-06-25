@@ -34,7 +34,7 @@ public class Kitchen {
 
     public TicketUp make(final TicketIn ticketIn){
 
-        logger.debug("making: {}" + ticketIn.getItem());
+        logger.debug("making: {}", ticketIn.getItem());
 
         int delay;
         switch (ticketIn.getItem()) {

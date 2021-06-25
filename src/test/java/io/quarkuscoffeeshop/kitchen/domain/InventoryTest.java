@@ -10,7 +10,8 @@ import org.junit.jupiter.api.TestMethodOrder;
 import javax.inject.Inject;
 import java.util.Map;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @QuarkusTest @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class InventoryTest {
